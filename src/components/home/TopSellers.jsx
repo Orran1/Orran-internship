@@ -27,12 +27,18 @@ const TopSellers = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className="text-center">
-              <h2>Top Sellers</h2>
+              <h2 data-aos="fade-in" data-aos-anchor-placement="top-bottom">
+                Top Sellers
+              </h2>
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
           <div className="col-md-12">
-            <ol className="author_list">
+            <ol
+              className="author_list"
+              data-aos="fade-in"
+              data-aos-anchor-placement="top-bottom"
+            >
               {skeleton
                 ? skeletonArray.map((_, index) => (
                     <li key={index}>
@@ -49,7 +55,11 @@ const TopSellers = () => {
                     </li>
                   ))
                 : userData.map((userProfile, index) => (
-                    <li key={index}>
+                    <li
+                      key={index}
+                      data-aos="fade-in"
+                      data-aos-anchor-placement="top-bottom"
+                    >
                       <div className="author_list_pp">
                         <Link to={`/author/${userProfile.authorId}`}>
                           <img
