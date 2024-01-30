@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
 
-const TopSellers = () => {
+export default function TopSellers() {
   const [userData, setUserData] = useState([]);
   const [skeleton, setSkeleton] = useState(true);
 
-  async function fetchUsers() {
+  async function fetchData() {
     const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers"
     );
-    setUserData(data);
     setSkeleton(false);
+    setUserData(data);
   }
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
-
-  const skeletonArray = Array.from({ length: 12 }).fill(null);
 
   return (
     <section id="section-popular" className="pb-5">
@@ -40,17 +38,25 @@ const TopSellers = () => {
               data-aos-anchor-placement="top-bottom"
             >
               {skeleton
-                ? skeletonArray.map((_, index) => (
+                ? new Array(12).fill(0).map((_, index) => (
                     <li key={index}>
-                      <div className="author_list_pp">
-                        <Skeleton borderRadius={50} height={50} width={50} />
-                        <i className="fa fa-check"></i>
-                      </div>
-                      <div className="author_list_info">
-                        <Skeleton height={20} width={100} borderRadius={4} />
-                        <span>
-                          <Skeleton height={20} width={60} borderRadius={4} />
-                        </span>
+                      <div className="nft_skeleton">
+                        <div className="author_list_pp">
+                          <Link to="/author">
+                            <Skeleton
+                              borderRadius={50}
+                              height={50}
+                              width={50}
+                            />
+                            <i className="fa fa-check"></i>
+                          </Link>
+                        </div>
+                        <div className="author_list_info">
+                          <Skeleton height={20} width={100} />
+                          <span>
+                            <Skeleton height={20} width={40} />
+                          </span>
+                        </div>
                       </div>
                     </li>
                   ))
@@ -84,6 +90,4 @@ const TopSellers = () => {
       </div>
     </section>
   );
-};
-
-export default TopSellers;
+}
